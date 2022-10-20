@@ -1,29 +1,70 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
+import React, { useState } from 'react'
 
-function adminSignup() {
+function SignupAdmin({ setadmin }) {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    fetch("/signup_admin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password, passwordConfirmation }),
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((admin) => setadmin(admin));
+      }
+    });
+  }
+
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check type="checkbox" label="Check me out" />
-      </Form.Group>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+        <h1>AdminSignup</h1>
+        <label htmlFor="username" className="form-label">Username</label>
+        <input
+          type="text"
+          id="username"
+          className="form-control"
+          autoComplete="off"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+         <label htmlFor="email" className="form-label">Email</label>
+        <input
+          type="text"
+          id="email"
+          className="form-control"
+          autoComplete="off"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <label htmlFor="password" className="form-label">Password</label>
+        <input
+          type="password"
+          id="password"
+          className="form-control"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+         <label htmlFor="password" className="form-label">Password  Confirmation</label>
+        <input
+          type="password"
+          id="passwordConfirmation"
+          className="form-control"
+          value={passwordConfirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+        />
+        </div>
+        <button type="submit" className="btn btn-primary">Signup</button>
+      </form>
+    </div>
   );
 }
 
-export default BasicExample;
+export default SignupAdmin
