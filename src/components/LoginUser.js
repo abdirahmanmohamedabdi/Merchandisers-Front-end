@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Home from "./Navbar";
 
 function LoginUser({ setuser }) {
   const [username, setusername] = useState("");
@@ -20,7 +21,9 @@ function LoginUser({ setuser }) {
   }
 
   return (
+    
     <div>
+      <Home/>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
         <h1>UserLogin</h1>
