@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import Home from './Navbar';
+
 
 function LoginAdmin({ setadmin }) {
+  
   const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,9 +23,11 @@ function LoginAdmin({ setadmin }) {
   }
 
   return (
+  
     <div>
+      <Home/>
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
+        <div className="mb-5">
         <h1>AdminLogin</h1>
         <label htmlFor="username" className="form-label">username</label>
         <input
